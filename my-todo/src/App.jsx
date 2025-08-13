@@ -43,7 +43,7 @@ export default function App() {
   // Function to fetch tasks from the backend
   const fetchTasks = async (token) => {
     try {
-      const response = await fetch(`${BACKEND_URL}/tasks`, {
+      const response = await fetch(`${BACKEND_URL}api/tasks`, {
         headers: {
           'Authorization': `Bearer ${token}`, // Include the JWT in the header
         },
@@ -65,7 +65,7 @@ export default function App() {
   // Handle user registration
   const handleRegister = async (userData) => {
     try {
-      const response = await fetch(`${BACKEND_URL}/register`, {
+      const response = await fetch(`${BACKEND_URL}/api/register`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(userData),
@@ -86,7 +86,7 @@ export default function App() {
   // Handle user login
   const handleLogin = async (email, password) => {
     try {
-      const response = await fetch(`${BACKEND_URL}/login`, {
+      const response = await fetch(`${BACKEND_URL}/api/login`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email, password }),
@@ -123,7 +123,7 @@ export default function App() {
     if (newTask.trim() === '') return;
 
     try {
-      const response = await fetch(`${BACKEND_URL}/tasks`, {
+      const response = await fetch(`${BACKEND_URL}/api/tasks`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -148,7 +148,7 @@ export default function App() {
   // Handle toggling the completion status of a task
   const handleToggleComplete = async (id, completed) => {
     try {
-      const response = await fetch(`${BACKEND_URL}/tasks/${id}`, {
+      const response = await fetch(`${BACKEND_URL}/api/tasks/${id}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -174,7 +174,7 @@ export default function App() {
   // Handle deleting a task from the list
   const handleDeleteTask = async (id) => {
     try {
-      const response = await fetch(`${BACKEND_URL}/tasks/${id}`, {
+      const response = await fetch(`${BACKEND_URL}/api/tasks/${id}`, {
         method: 'DELETE',
         headers: {
           'Authorization': `Bearer ${auth.token}`,
@@ -207,7 +207,7 @@ export default function App() {
     }
 
     try {
-      const response = await fetch(`${BACKEND_URL}/tasks/${id}`, {
+      const response = await fetch(`${BACKEND_URL}/api/tasks/${id}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
