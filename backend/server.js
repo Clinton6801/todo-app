@@ -17,7 +17,9 @@ const PORT = process.env.PORT || 5000;
 // This allows the server to parse JSON data from incoming requests
 app.use(express.json());
 // This enables Cross-Origin Resource Sharing, allowing your React frontend to communicate with this backend
-app.use(cors());
+app.use(cors({
+  origin: 'https://todo-appp-2c6.pages.dev' // This is the most secure option
+}));
 
 // IMPORTANT: Replace this with your actual MongoDB connection string from Atlas.
 // This is the bridge between your server and your database.
