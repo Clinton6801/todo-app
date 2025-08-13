@@ -19,7 +19,7 @@ export default function App() {
   const [toastMessage, setToastMessage] = useState(null);
 
   // The base URL of your backend server
-  const BACKEND_URL = 'http://localhost:5000/api';
+  const BACKEND_URL = 'https://todo-app-vbvl.onrender.com';
 
   // Function to show a toast message
   const showToast = (message, type = 'success') => {
