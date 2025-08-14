@@ -43,7 +43,7 @@ export default function App() {
   // Function to fetch tasks from the backend
   const fetchTasks = async (token) => {
     try {
-      const response = await fetch(`${BACKEND_URL}api/tasks`, {
+      const response = await fetch(`${BACKEND_URL}/api/tasks`, {
         headers: {
           'Authorization': `Bearer ${token}`, // Include the JWT in the header
         },
