@@ -137,19 +137,50 @@ const authMiddleware = async (req, res, next) => {
 // --- API Endpoints for Authentication ---
 
 // User Registration
+// server.js - Find your existing registration route and replace it with this:
 app.post('/api/register', async (req, res) => {
   try {
     const { firstName, lastName, email, password, dob, gender, username, purpose } = req.body;
-       console.log('Received registration data:', req.body);
-    // Check if the email or username already exists
-    const existingUser = await User.findOne({ $or: [{ email }, { username }] });
-    if (existingUser) {
-      if (existingUser.email === email) {
-        return res.status(409).json({ message: 'Email already in use.' });
-      } else {
-        return res.status(409).json({ message: 'Username already taken.' });
-      }
+
+    // Log the data received from the frontend
+    console.log('1. Received registration data:', req.body);
+
+    // Check for missing fields
+    if (!username || !email || !password) {
+      console.error('2. Registration failed: Missing required fields');
+      return res.status(400).json({ message: 'Please enter all required fields' });
     }
+
+    // Hash the password
+    const salt = await bcrypt.genSalt(10);
+    const hashedPassword = await bcrypt.hash(password, salt);
+    console.log('3. Password hashed successfully.');
+
+    // Create a new user object
+    const newUser = new User({
+      firstName,
+      lastName,
+      email,
+      password: hashedPassword,
+      dob,
+      gender,
+      username,
+      purpose,
+    });
+    
+    // Log the object before attempting to save
+    console.log('4. Attempting to save new user:', newUser);
+
+    await newUser.save();
+    console.log('5. User successfully saved to the database!');
+
+    res.status(201).json({ message: 'User registered successfully!' });
+
+  } catch (error) {
+    console.error('An error occurred during registration:', error.message);
+    res.status(500).json({ message: 'Registration failed.', error: error.message });
+  }
+});
 
     // Add a simple GET route for the root URL
 app.get('/', (req, res) => {
