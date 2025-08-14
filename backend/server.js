@@ -137,7 +137,6 @@ const authMiddleware = async (req, res, next) => {
 // --- API Endpoints for Authentication ---
 
 // User Registration
-// server.js - Find your existing registration route and replace it with this:
 app.post('/api/register', async (req, res) => {
   try {
     const { firstName, lastName, email, password, dob, gender, username, purpose } = req.body;
@@ -151,7 +150,7 @@ app.post('/api/register', async (req, res) => {
       return res.status(400).json({ message: 'Please enter all required fields' });
     }
 
-    // Hash the password
+    // Hash the password securely
     const salt = await bcrypt.genSalt(10);
     const hashedPassword = await bcrypt.hash(password, salt);
     console.log('3. Password hashed successfully.');
@@ -167,7 +166,7 @@ app.post('/api/register', async (req, res) => {
       username,
       purpose,
     });
-    
+
     // Log the object before attempting to save
     console.log('4. Attempting to save new user:', newUser);
 
@@ -182,41 +181,9 @@ app.post('/api/register', async (req, res) => {
   }
 });
 
-    // Add a simple GET route for the root URL
+// Add a simple GET route for the root URL
 app.get('/', (req, res) => {
   res.send('Your backend server is running and ready!');
-});
-
-// User Registration
-app.post('/api/register', async (req, res) => {
-  try {
-    // ... all your registration logic ...
-  } catch (error) {
-    // ... error handling ...
-  }
-});
-
-    // Hash the password securely
-    const hashedPassword = await bcrypt.hash(password, 10);
-
-    // Create and save the new user with all the new fields
-    const newUser = new User({
-      email,
-      password: hashedPassword,
-      firstName,
-      lastName,
-      dob,
-      gender,
-      username,
-      purpose,
-    });
-    await newUser.save();
-
-    res.status(201).json({ message: 'User registered successfully!' });
-  } catch (error) {
-    console.error('Registration Error:', error);
-    res.status(500).json({ message: 'Internal server error.' });
-  }
 });
 
 // User Login
