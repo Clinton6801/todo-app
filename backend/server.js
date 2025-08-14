@@ -140,7 +140,7 @@ const authMiddleware = async (req, res, next) => {
 app.post('/api/register', async (req, res) => {
   try {
     const { firstName, lastName, email, password, dob, gender, username, purpose } = req.body;
-
+       console.log('Received registration data:', req.body);
     // Check if the email or username already exists
     const existingUser = await User.findOne({ $or: [{ email }, { username }] });
     if (existingUser) {
